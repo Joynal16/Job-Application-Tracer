@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!--Tailwind CSS-->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+
+    <!--Google Fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+
+    <!--Font-Awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <style>
+        * { box-sizing: border-box; }
+        html, body { overflow-x: hidden; }
+        button { transition: all .2s ease; }
+        @media (max-width: 639px) {
+            .status { font-size: 11px; }
+        }
+    </style>
+
+
+</head>
+<body class="min-h-screen bg-slate-50 text-slate-900 antialiased">
+
+
+
+   
+      <header class="w-full max-w-6xl mx-auto pt-8 sm:pt-10 lg:pt-14 px-4 sm:px-6 lg:px-8">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-6 text-slate-900">Job Application Tracker</h1>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-5">
+            <div class="group relative overflow-hidden bg-gradient-to-br from-sky-500 to-indigo-600 p-5 sm:p-6 rounded-2xl shadow-lg shadow-sky-100 border border-white/60 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <p class="text-sm font-semibold text-white/90 uppercase tracking-wider">Total</p>
+                <p class="text-white font-extrabold text-3xl sm:text-4xl mt-1" id="total">0</p>
+            </div>
+            <div class="group relative overflow-hidden bg-gradient-to-br from-emerald-400 to-cyan-600 p-5 sm:p-6 rounded-2xl shadow-lg shadow-emerald-100 border border-white/60 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <p class="text-sm font-semibold text-white/90 uppercase tracking-wider">Interview</p>
+                <p class="text-white font-extrabold text-3xl sm:text-4xl mt-1" id="interview">0</p>
+            </div>
+            <div class="group relative overflow-hidden bg-gradient-to-br from-rose-500 to-pink-500 p-5 sm:p-6 rounded-2xl shadow-lg shadow-rose-100 border border-white/60 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <p class="text-sm font-semibold text-white/90 uppercase tracking-wider">Rejected</p>
+                <p class="text-white font-extrabold text-3xl sm:text-4xl mt-1" id="rejected">0</p>
+            </div>
+        </div>
+    </header>
+   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 sm:mt-10"><div class="h-px bg-slate-200"></div></div>
+
+
+
+
+
+
+    <main class="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+
+        <div class="w-full mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6 mt-7">
+            
+            <!-- <div>
+                <h3 class="font-bold text-xl sm:text-2xl">Available Jobs</h3>
+            </div>
+            <div class="flex justify-start sm:justify-end gap-1">
+                <p class="text-black text-lg">4</p>
+                <p class="text-lg">jobs</p>
+            </div> -->
+           
+        </div>
+        <div class="flex flex-wrap gap-2 p-1.5 w-full sm:w-fit rounded-xl bg-white border border-slate-200 shadow-sm">
+            <button onclick="toggleStyle('all-filter-btn')" class="bg-blue-600 px-6 sm:px-8 font-semibold py-2.5 rounded-lg text-white text-sm flex-1 sm:flex-none shadow-sm  transition" id="all-filter-btn">All</button>
+            <button onclick="toggleStyle('interview-filter-btn')" class="font-semibold text-slate-600  px-5 py-2.5 rounded-lg text-sm flex-1 sm:flex-none transition"  id="interview-filter-btn">Interview</button>
+            <button onclick="toggleStyle('rejected-filter-btn')" class="font-semibold text-slate-600   px-5 py-2.5 rounded-lg text-sm flex-1 sm:flex-none transition"  id="rejected-filter-btn">Rejected</button>
+        </div>
+
+
+        <!--filtered card-->
+        <section id="filtered-section" class="hidden">
+
+        </section>
+
+
+        <section id="all-cards" class="w-full space-y-4 sm:space-y-5 mt-6">
+
+            <div class="group bg-white rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 overflow-hidden">
+                <div class="p-5 sm:p-6 flex items-start justify-between gap-4 border-b border-slate-100">
+               
+                    <div class="">
+                        <h1 class="mobileFirst text-lg sm:text-xl font-bold tracking-tight text-slate-900">Mobile First Corp 1</h1>
+                        <p class="reactNative text-sm sm:text-base text-slate-500 mt-1">React Native Developer</p>
+                    </div>
+                     <div>
+                    
+                </div>
+                <p class="delete-btn-1 inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-red-600 hover:bg-red-50 shadow-none rounded-lg p-2 transition cursor-pointer"><i class="fa-solid fa-trash-can"></i> delete</p>
+                </div>
+               <div class="px-5 sm:px-6 pt-4">
+                 <p class="remote text-sm text-slate-500">Remote
+ • 
+Full-time 
+•
+ $130,000 - $175,000</p> 
+               </div>
+                <div class="p-5 sm:p-6">
+                    <button  class="status inline-flex items-center bg-blue-50 text-blue-700 border border-blue-100 px-3 py-1.5 mb-3 rounded-full text-xs font-bold tracking-wide shadow-none">NOT APPLIED</button>
+                    <p class="note leading-7 break-words text-slate-600 text-sm sm:text-base">Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.</p>
+                </div>
+                 <div class="p-5 sm:p-6">
+                    <button class="interview-btn border border-emerald-200 bg-emerald-50 px-3 py-2 rounded-lg text-emerald-700 font-semibold mr-1 hover:bg-emerald-100 hover:border-emerald-300 transition">INTERVIEW</button>
+                    <button class="rejected-btn border border-rose-200 bg-rose-50 px-3 py-2 text-rose-600 rounded-lg font-semibold hover:bg-rose-100 hover:border-rose-300 transition">REJECTED</button>
+                </div>
+
+            </div>
+            <div class="group bg-white rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 overflow-hidden">
+                <div class="p-5 sm:p-6 flex items-start justify-between gap-4 border-b border-slate-100">
+               
+                    <div class="">
+                        <h1 class="mobileFirst text-lg sm:text-xl font-bold tracking-tight text-slate-900">Mobile First Corp 2</h1>
+                        <p class="reactNative text-sm sm:text-base text-slate-500 mt-1">React Native Developer</p>
+                    </div>
+                     <div>
+                    
+                </div>
+                <p class="delete-btn-1 inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-red-600 hover:bg-red-50 shadow-none rounded-lg p-2 transition cursor-pointer"><i class="fa-solid fa-trash-can"></i> delete</p>
+                </div>
+               <div class="px-5 sm:px-6 pt-4">
+                 <p class="remote text-sm text-slate-500">Remote</p>
+ • 
+Full-time 
+•
+ $130,000 - $175,000</p>
+               </div>
+                <div class="p-5 sm:p-6">
+                    <button  class="status inline-flex items-center bg-blue-50 text-blue-700 border border-blue-100 px-3 py-1.5 mb-3 rounded-full text-xs font-bold tracking-wide shadow-none">NOT APPLIED</button>
+                    <p class="note leading-7 break-words text-slate-600 text-sm sm:text-base">Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.</p>
+                </div>
+                 <div class="p-5 sm:p-6">
+                    <button  class="interview-btn border border-emerald-200 bg-emerald-50 px-3 py-2 rounded-lg text-emerald-700 font-semibold mr-1 hover:bg-emerald-100 hover:border-emerald-300 transition">INTERVIEW</button>
+                    <button class="rejected-btn border border-rose-200 bg-rose-50 px-3 py-2 text-rose-600 rounded-lg font-semibold hover:bg-rose-100 hover:border-rose-300 transition">REJECTED</button>
+                </div>
+
+            </div>
+            <div class="group bg-white rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 overflow-hidden">
+                <div class="p-5 sm:p-6 flex items-start justify-between gap-4 border-b border-slate-100">
+               
+                    <div class="">
+                        <h1 class="mobileFirst text-lg sm:text-xl font-bold tracking-tight text-slate-900">Mobile First Corp 3</h1>
+                        <p class="reactNative text-sm sm:text-base text-slate-500 mt-1">React Native Developer</p>
+                    </div>
+                     <div>
+                    
+                </div>
+                <p class="delete-btn-1 inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-red-600 hover:bg-red-50 shadow-none rounded-lg p-2 transition cursor-pointer"><i class="fa-solid fa-trash-can"></i> delete</p>
+                </div>
+               <div class="px-5 sm:px-6 pt-4">
+                 <p class="remote text-sm text-slate-500">Remote
+ • 
+Full-time 
+•
+ $130,000 - $175,000</p>
+               </div>
+                <div class="p-5 sm:p-6">
+                    <button  class="status inline-flex items-center bg-blue-50 text-blue-700 border border-blue-100 px-3 py-1.5 mb-3 rounded-full text-xs font-bold tracking-wide shadow-none">NOT APPLIED</button>
+                    <p class="note leading-7 break-words text-slate-600 text-sm sm:text-base">Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.</p>
+                </div>
+                 <div class="p-5 sm:p-6">
+                    <button class="interview-btn border border-emerald-200 bg-emerald-50 px-3 py-2 rounded-lg text-emerald-700 font-semibold mr-1 hover:bg-emerald-100 hover:border-emerald-300 transition">INTERVIEW</button>
+                    <button class="rejected-btn border border-rose-200 bg-rose-50 px-3 py-2 text-rose-600 rounded-lg font-semibold hover:bg-rose-100 hover:border-rose-300 transition">REJECTED</button>
+                </div>
+
+            </div>
+            <div class="group bg-white rounded-2xl border border-slate-200/80 shadow-sm hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 overflow-hidden">
+                <div class="p-5 sm:p-6 flex items-start justify-between gap-4 border-b border-slate-100">
+               
+                    <div class="">
+                        <h1 class="mobileFirst text-lg sm:text-xl font-bold tracking-tight text-slate-900">Mobile First Corp 4</h1>
+                        <p class="reactNative text-sm sm:text-base text-slate-500 mt-1">React Native Developer</p>
+                    </div>
+                     <div>
+                    
+                </div>
+                <p class="delete-btn-1 inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-red-600 hover:bg-red-50 shadow-none rounded-lg p-2 transition cursor-pointer"><i class="fa-solid fa-trash-can"></i> delete</p>
+                </div>
+               <div class="px-5 sm:px-6 pt-4">
+                 <p class="remote text-sm text-slate-500">Remote
+ • 
+Full-time 
+•
+ $130,000 - $175,000</p>
+               </div>
+                <div class="p-5 sm:p-6">
+                    <button  class="status inline-flex items-center bg-blue-50 text-blue-700 border border-blue-100 px-3 py-1.5 mb-3 rounded-full text-xs font-bold tracking-wide shadow-none">NOT APPLIED</button>
+                    <p class="note leading-7 break-words text-slate-600 text-sm sm:text-base">Build cross-platform mobile applications using React Native. Work on products used by millions of users worldwide.</p>
+                </div>
+                 <div class="p-5 sm:p-6">
+                    <button class="interview-btn border border-emerald-200 bg-emerald-50 px-3 py-2 rounded-lg text-emerald-700 font-semibold mr-1 hover:bg-emerald-100 hover:border-emerald-300 transition">INTERVIEW</button>
+                    <button  class="rejected-btn border border-rose-200 bg-rose-50 px-3 py-2 text-rose-600 rounded-lg font-semibold hover:bg-rose-100 hover:border-rose-300 transition">REJECTED</button>
+                </div>
+
+            </div>
+                         
+
+
+        </section>
+
+    </main>
+
+
+
+
+    <script src="script.js"></script>
+</body>
+</html>
