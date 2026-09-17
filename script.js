@@ -58,7 +58,7 @@ function toggleStyle(id) {
 mainContainer.addEventListener("click", function (event) {
     if (event.target.classList.contains("delete-btn-1")) {
         const parentNode = event.target.parentNode.parentNode;
-        parentNode.remove(parentNode);
+        parentNode.remove(total.innerText= allCardSection.children.length-1);
     }
     if(event.target.classList.contains('interview-btn')){
         const parentNode = event.target.parentNode.parentNode;
